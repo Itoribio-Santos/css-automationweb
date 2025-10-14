@@ -1,6 +1,6 @@
 export const ENV = {
-    baseUrl: "https://www.saucedemo.com/",
-    user: "standard_user",
-    password: "secret_sauce"
+    baseUrl: "http://192.168.231.7:8080",
+    user: "italo",
+    password: "Juni@r041"
   };
   

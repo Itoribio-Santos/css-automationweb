@@ -1,18 +1,18 @@
-import { BasePage } from "./BasePage";
-import { ENV } from "../support/env";
+import { BasePage } from './BasePage';
+import { ENV } from '../support/env';
 
 export class LoginPage extends BasePage {
-  private usernameInput = "#user-name";
-  private passwordInput = "#password";
-  private loginButton = "#login-button";
+  private usernameInput = '#username';
+  private passwordInput = '#password';
+  private loginButton = 'button:has-text("Login")';
 
   async navigateToLogin() {
-    await this.page.goto(ENV.baseUrl);
+    await this.navigateTo(ENV.baseUrl + '/ccs-web/login/auth');
   }
 
   async login() {
-    await this.page.fill(this.usernameInput, ENV.user);
-    await this.page.fill(this.passwordInput, ENV.password);
-    await this.page.click(this.loginButton);
+    await this.fill(this.usernameInput, ENV.user);
+    await this.fill(this.passwordInput, ENV.password);
+    await this.click(this.loginButton);
   }
 }

@@ -5,7 +5,7 @@ export class HomePage extends BasePage {
   private userNameLabel = this.page.locator('div.logged-user span.name');
 
   async assertIsLoggedIn() {
-    await this.assertText(this.userNameLabel, "Juan");
+    await this.assertText(this.userNameLabel, ENV.user);
   }
 
 }

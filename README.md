@@ -1,3 +1,8 @@
+npm install -g @cucumber/cucumber
+npm run test:{el nombre del tag}
+npm run report
+
+
 CSS-AUTOMATIONWEB/
 │── package.json               # Configuración de dependencias y scripts
 │── tsconfig.json               # Configuración de TypeScript

@@ -1,32 +1,53 @@
-import { setWorldConstructor, World as CucumberWorld } from "@cucumber/cucumber";
-import { chromium, Browser, Page } from "playwright";
-import { LoginPage } from "../pages/LoginPage";
-import { HomePage } from "../pages/HomePage";
+import { setWorldConstructor, World as CucumberWorld } from '@cucumber/cucumber';
+import { chromium, Browser, Page, BrowserContext } from 'playwright';
+import { LoginPage, HomePage, UserPage } from '../pages';
+import fs from 'fs';
+import path from 'path';
 
 export class World extends CucumberWorld {
   browser!: Browser;
+  context!: BrowserContext;
   page!: Page;
   loginPage!: LoginPage;
   homePage!: HomePage;
+  userPage!: UserPage;
 
   async init() {
+    const storagePath = path.resolve('auth/storageState.json');
     this.browser = await chromium.launch({ headless: true });
-    const context = await this.browser.newContext();
-    this.page = await context.newPage();
 
-    // Instancia tus páginas
+    // Si el storageState existe, reutilízalo
+    if (fs.existsSync(storagePath)) {
+      this.context = await this.browser.newContext({ storageState: storagePath });
+      console.log('✅ Se reutilizó el estado autenticado');
+    } else {
+      // Si no existe, haz login automático
+      this.context = await this.browser.newContext();
+      this.page = await this.context.newPage();
+      this.loginPage = new LoginPage(this.page);
+
+      console.log('⚙️ No existe sesión, iniciando login automático...');
+      await this.loginPage.navigateToLogin();
+      await this.loginPage.login();
+
+      // Guarda la sesión para próximas ejecuciones
+      await this.context.storageState({ path: storagePath });
+      console.log('💾 Estado autenticado guardado correctamente');
+    }
+
+    // Inicializa una nueva página y las pages del proyecto
+    this.page = await this.context.newPage();
     this.loginPage = new LoginPage(this.page);
     this.homePage = new HomePage(this.page);
+    this.userPage = new UserPage(this.page);
 
-    // 🔍 Logs de depuración
-    console.log("✅ World initialized");
-    console.log("Page created?", !!this.page);
-    console.log("LoginPage created?", !!this.loginPage);
-    console.log("HomePage created?", !!this.homePage);
+    console.log('✅ World inicializado correctamente');
   }
 
   async close() {
-    await this.browser.close();
+    if (this.browser) {
+      await this.browser.close();
+    }
   }
 }
 

@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "scripts": {
     "clean": "rmdir /s /q reports",
-    "test": "cucumber-js --require-module ts-node/register --require ./support/world.ts --require ./step-definitions/**/*.ts --format json:./reports/cucumber-report.json --format progress",
+    "test": "npx cucumber-js \"features/**/*.feature\" --require-module ts-node/register --require ./support/world.ts --require ./step-definitions/**/*.ts --format json:./reports/cucumber-report.json --format progress",
+    "test:login": "npm run test -- --tags @Login",
+    "test:user": "npm run test -- --tags @User",
     "report": "node generate-report.cjs"
   },
   "dependencies": {

@@ -2,8 +2,9 @@
   "name": "automationplaywright",
   "version": "1.0.0",
   "scripts": {
+    "clean:auth": "del /f /q auth\\storageState.json",
     "clean": "rmdir /s /q reports",
-    "test": "npx cucumber-js \"features/**/*.feature\" --require-module ts-node/register --require ./support/world.ts --require ./step-definitions/**/*.ts --format json:./reports/cucumber-report.json --format progress",
+    "test": "npm run clean:auth && npx cucumber-js \"features/**/*.feature\" --require-module ts-node/register --require ./support/world.ts --require ./step-definitions/**/*.ts --format json:./reports/cucumber-report.json --format progress",
     "test:login": "npm run test -- --tags @Login",
     "test:user": "npm run test -- --tags @User",
     "report": "node generate-report.cjs"

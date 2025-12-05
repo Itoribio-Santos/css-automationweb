@@ -1,6 +1,11 @@
 npm install -g @cucumber/cucumber
+
+del auth\storageState.json
 npm run test:{el nombre del tag}
 npm run report
+
+Ejemplo
+npm test -- --tags "@UpdateUser"
 
 
 CSS-AUTOMATIONWEB/

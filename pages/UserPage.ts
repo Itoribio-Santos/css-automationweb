@@ -10,9 +10,16 @@ export class UserPage extends BasePage {
   private passInput = "#password";
   private saveButton = 'button:has-text("Save")';
   private confirmationMessage = ".alert-success";
+  private searchInput = 'input[aria-controls="datatable"]';
+  private editButton = 'button.viewUser';
+  private saveSecurityButton = '(//button[contains(.,"Save")])[2]';
 
   async navigateToUserPage() {
     await this.navigateTo(`${ENV.baseUrl}/ccs-web/userAdmin/createUser`);
+  }
+
+  async navigateToSearchUserPage() {
+    await this.navigateTo(`${ENV.baseUrl}/ccs-web/userAdmin/searchUser`);
   }
 
   async createNewUser(
@@ -37,4 +44,19 @@ export class UserPage extends BasePage {
     await messageElement.waitFor({ state: "visible" });
     return (await messageElement.textContent()) || "";
   }
+
+  async selectUserToUpdate(userId: string) {
+    await this.fill(this.searchInput, userId);
+    await this.click(this.editButton);
+  }
+
+  async checkSecurityGroup(secGroup: string) {
+    const spanLocator = this.page.locator(
+      `input[type="checkbox"][name="secGroups"][value="${secGroup}"] + span`
+    );
+    await spanLocator.waitFor({ state: "visible" });
+    await spanLocator.click();
+    await this.click(this.saveSecurityButton);
+  }
+
 }

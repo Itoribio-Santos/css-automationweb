@@ -37,11 +37,6 @@ export class BasePage {
     await expect(this.page).toHaveURL(new RegExp(partialUrl));
   }
 
-  // 👉 Tomar captura de pantalla (útil para errores o reportes)
-  async takeScreenshot(filename: string) {
-    await this.page.screenshot({ path: `reports/screenshots/${filename}.png`, fullPage: true });
-  }
-
   //para que un localizador tenga un texto específico
   async assertText(locator: Locator, expectedText: string) {
     await expect(locator).toHaveText(expectedText);

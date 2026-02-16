@@ -7,7 +7,7 @@ export class LoginPage extends BasePage {
   private loginButton = 'button:has-text("Login")';
 
   async navigateToLogin() {
-    await this.navigateTo(ENV.baseUrl + '/ccs-web/login/auth');
+    await this.navigateTo(ENV.baseUrl + 'login/auth');
   }
 
   async login() {

@@ -1,6 +1,6 @@
 import { setWorldConstructor, World as CucumberWorld } from '@cucumber/cucumber';
 import { chromium, Browser, Page, BrowserContext } from 'playwright';
-import { LoginPage, HomePage, UserPage } from '../pages';
+import { LoginPage, HomePage, UserPage, CardPage } from '../pages';
 import fs from 'fs';
 import path from 'path';
 
@@ -11,6 +11,8 @@ export class World extends CucumberWorld {
   loginPage!: LoginPage;
   homePage!: HomePage;
   userPage!: UserPage;
+  cardPage!: CardPage;
+  applicationId!: string;
 
   async init() {
     const storagePath = path.resolve('auth/storageState.json');
@@ -40,6 +42,7 @@ export class World extends CucumberWorld {
     this.loginPage = new LoginPage(this.page);
     this.homePage = new HomePage(this.page);
     this.userPage = new UserPage(this.page);
+    this.cardPage = new CardPage(this.page);
 
     console.log('✅ World inicializado correctamente');
   }
@@ -49,6 +52,31 @@ export class World extends CucumberWorld {
       await this.browser.close();
     }
   }
+
+  async attachScreenshot(name: string) {
+    const timestamp = new Date().toISOString().replace(/[:.]/g, "-");
+    const screenshotDir = path.resolve('reports/screenshots');
+
+    // 🔥 Asegurar carpeta
+    if (!fs.existsSync(screenshotDir)) {
+      fs.mkdirSync(screenshotDir, { recursive: true });
+    }
+
+    const filePath = path.join(
+      screenshotDir,
+      `${name}-${timestamp}.png`
+    );
+
+    const buffer = await this.page.screenshot({
+      path: filePath,
+      fullPage: true
+    });
+
+    await this.attach(buffer, "image/png");
+
+    console.log(`📸 Screenshot saved & attached: ${filePath}`);
+  }
+
 }
 
 setWorldConstructor(World);

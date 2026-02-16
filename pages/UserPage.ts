@@ -15,11 +15,11 @@ export class UserPage extends BasePage {
   private saveSecurityButton = '(//button[contains(.,"Save")])[2]';
 
   async navigateToUserPage() {
-    await this.navigateTo(`${ENV.baseUrl}/ccs-web/userAdmin/createUser`);
+    await this.navigateTo(`${ENV.baseUrl}userAdmin/createUser`);
   }
 
   async navigateToSearchUserPage() {
-    await this.navigateTo(`${ENV.baseUrl}/ccs-web/userAdmin/searchUser`);
+    await this.navigateTo(`${ENV.baseUrl}userAdmin/searchUser`);
   }
 
   async createNewUser(

@@ -6,7 +6,7 @@ Feature: Manage card products in the application
         Given I navigate to the application creation page
         When I choose the option "<customerType>" for the creation of the application
         And I choose the option "<productType>" for product type
-        And I search the customer with CIF "<cifCustomer>" and select it
+        And I search the customer with CIF
         And I select the card type "<cpNum>", "<apNum>", "<curr>"
         And I validate the PreIssueCardValidation screen
         And I validate the Services screen

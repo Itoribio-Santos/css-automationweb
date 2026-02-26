@@ -15,8 +15,14 @@ When("I choose the option {string} for product type", async function (this: Worl
     await this.cardPage.selectProductType(productType);
 });
 
-When("I search the customer with CIF {string} and select it", async function (this: World, cifCustomer: string) {
-    await this.cardPage.searchCustomer(cifCustomer);
+When("I search the customer with CIF", async function (this: World) {
+    const cif = this.generatedCif;
+
+    if (!cif) {
+        throw new Error('No CIF stored in World');
+    }
+
+    await this.cardPage.searchCustomer(cif);
 });
 
 When('I select the card type {string}, {string}, {string}', async function (this: World, cpNum: string, apNum: string, curr: string) {

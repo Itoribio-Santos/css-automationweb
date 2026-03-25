@@ -20,11 +20,5 @@ Feature: Manage card products in the application
         And I approve the card application on Level 2
         And I approve the card application on Level 3
         Examples:
-            | customerType | productType | cifCustomer | cpNum | apNum | curr | accountBranch | reportingBranch | deliveryBranch | salesAgency | salesPerson |
-            | individual   | debit       | 10032034    | 002   | 002   | 840  | 0001          | 0001            | 0001           | 0001        | 1100        |
-
-    # @ApproveCardApplication
-    # Scenario: Approve three levels of a card application
-    #     Given I navigate to the approve card application page3
-    #     When I start the card application approve flow with the stored application id3
-    #     Then I approve the card application on Level 3
+            | customerType | productType | cpNum | apNum | curr | accountBranch | reportingBranch | deliveryBranch | salesAgency | salesPerson |
+            | individual   | debit       | 002   | 002   | 840  | 0001          | 0001            | 0001           | 0001        | 1100        |

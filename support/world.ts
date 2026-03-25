@@ -1,6 +1,6 @@
 import { setWorldConstructor, World as CucumberWorld } from '@cucumber/cucumber';
 import { chromium, Browser, Page, BrowserContext } from 'playwright';
-import { LoginPage, HomePage, UserPage, CardPage, CustomerPage } from '../pages';
+import { LoginPage, HomePage, UserPage, CardPage, CustomerPage, AccountPage } from '../pages';
 import fs from 'fs';
 import path from 'path';
 
@@ -11,9 +11,10 @@ export class World extends CucumberWorld {
   loginPage!: LoginPage;
   homePage!: HomePage;
   userPage!: UserPage;
-  applicationId!: string;
   cardPage!: CardPage;
   customerPage!: CustomerPage;
+  accountPage!: AccountPage;
+  applicationId!: string;
   generatedCif!: string;
 
   async init() {
@@ -46,6 +47,7 @@ export class World extends CucumberWorld {
     this.userPage = new UserPage(this.page);
     this.cardPage = new CardPage(this.page);
     this.customerPage = new CustomerPage(this.page);
+    this.accountPage = new AccountPage(this.page);
 
     console.log('✅ World inicializado correctamente');
   }

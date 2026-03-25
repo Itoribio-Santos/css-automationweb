@@ -4,3 +4,4 @@ export * from "./BasePage";
 export * from "./UserPage";
 export * from "./CardPage";
 export * from "./CustomerPage";
+export * from "./AccountPage";

@@ -23,6 +23,7 @@ When("I search the customer with CIF", async function (this: World) {
     }
 
     await this.cardPage.searchCustomer(cif);
+    //await this.cardPage.searchCustomer("10032034");    
 });
 
 When('I select the card type {string}, {string}, {string}', async function (this: World, cpNum: string, apNum: string, curr: string) {

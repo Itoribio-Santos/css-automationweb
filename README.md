@@ -7,6 +7,9 @@ npm run report
 Ejemplo
 npm test -- --tags "@UpdateUser"
 
+git add .
+git commit -m "Update the user"
+git push origin main
 
 CSS-AUTOMATIONWEB/
 │── package.json               # Configuración de dependencias y scripts
